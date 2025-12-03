@@ -1,0 +1,4 @@
+server/db.sqlite3
+server/api/__pycache__/
+server/__pycache__/
+*.pyc
