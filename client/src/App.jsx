@@ -5,6 +5,7 @@ function App() {
   const [notes, setNotes] = useState([]);
   const [userName , setUserName] = useState("")
   const [desc, setDesc] = useState("")
+  cost [newName , setNewName] = useState("");
 
 
   useEffect (() => {
@@ -45,6 +46,38 @@ const addNote = async () => {
   
 }
 
+const updateName = async (pk , desc)=> {
+   const noteData = {
+    name : newName,
+    desc,
+  }
+  try {
+    const response = await fetch(`http://127.0.0.1:8000/api/notes/create/${pk}` , {
+    method: "PUT",
+    headers: {
+      'Content-Type' : 'application/json'
+    },
+    body : JSON.stringify(noteData)
+  });
+  const data = await response.json()
+  // console.log(data)
+    setNotes((prev) =>{prev.map((notes) => {
+      if (notes.id === pk) {
+        return data
+      } else {
+        return notes;
+      }
+    })})
+  } catch (err) {
+    console.log(err)
+  }
+  
+} 
+
+// const showNotes = async ((item)=> (
+//   console.log(item)
+// ))
+
   return (
     <>
       <h1>Personal Notes</h1>
@@ -59,10 +92,16 @@ const addNote = async () => {
 
       <div>
         <h1>Display Notes</h1>
+        {/* <button type="button" onClick={showNotes}>Click The Button To Show Notes</button> */}
+
         {notes.map((item)=>(
           <div key={item.id}>
             <p>Name : {item.userName} </p>
             <p>Descriptions : {item.desc}</p>
+            <br /><br />
+            <input type="text" placeholder='Update Name ........'
+              onChange={(e) => setNewName(e.target.value) } />
+            <button type="button" onClick={() => updateName(notes.id)}>Update Name</button>
           </div>
         ))}
       </div>

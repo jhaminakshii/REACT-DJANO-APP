@@ -1,4 +1,9 @@
-server/db.sqlite3
-server/api/__pycache__/
-server/__pycache__/
+# Django
 *.pyc
+__pycache__/
+server/__pycache__/
+server/api/__pycache__/
+
+# Database
+server/db.sqlite3
+
